@@ -1,10 +1,15 @@
-import React from 'react'
+import React from 'react';
+
+import { useSelector } from 'react-redux';
+
 import './Table.css';
 
-export default function Table({ users, pageNumber }) {
-
-	// Two rows per page
-	let slicedUsers = users.slice((pageNumber * 2) - 2, pageNumber * 2);
+export default function Table() {
+	const pageNumber = useSelector(state => state.pageNumber);
+	const users = useSelector(state => state.users);
+	const tableRows = useSelector(state => state.table);
+	
+	let slicedUsers = users.slice((pageNumber * tableRows) - tableRows, pageNumber * tableRows);
 	
 	return (
 		<div>

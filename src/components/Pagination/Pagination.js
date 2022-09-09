@@ -1,11 +1,14 @@
 import React from "react";
-
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { nextPage, previousPage, goToPage } from "../../actions/pageNumberActions";
 
 import './Pagination.css';
 
-export default function Pagination({ pageNumber, arrayLength }) {
+export default function Pagination() {
+
+	const pageNumber = useSelector(state => state.pageNumber);
+	const users = useSelector(state => state.users);
+	const tableRows = useSelector(state => state.table);
 
 	const dispatch = useDispatch();
 
@@ -17,10 +20,15 @@ export default function Pagination({ pageNumber, arrayLength }) {
 
 	return (
 		<div>
-			{pageNumber <= 1 ? null : <button className="paginationBtn" onClick={() => dispatch(previousPage())}>{'<'}</button>}
-			{arrayLength > 0 ? <input onChange={(e) => handleInputChange(e)} type="text"
-				value={pageNumber} /> : null}
-			{(arrayLength / pageNumber <= 2 ? null : <button className="paginationBtn" onClick={() => dispatch(nextPage())}>{'>'}</button>)}
+			{pageNumber <= 1 ? null :
+				<button className="paginationBtn" onClick={() => dispatch(previousPage())}>{'<'}</button>
+			}
+			{users.length <= 0 ? null :
+				<input onChange={(e) => handleInputChange(e)} type="text" value={pageNumber} /> 
+			}
+			{(users.length / pageNumber <= tableRows ? null :
+				<button className="paginationBtn" onClick={() => dispatch(nextPage())}>{'>'}</button>
+			)}
 		</div>
 	)
 }
