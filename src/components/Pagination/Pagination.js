@@ -15,7 +15,12 @@ export default function Pagination() {
 	function handleInputChange(e) {
 		e.preventDefault();
 		const exactPage = parseInt(e.target.value);
-		dispatch(goToPage(exactPage));
+		const lastPageAvailable = Math.round(users.length / tableRows);
+		if(exactPage > lastPageAvailable){
+			dispatch(goToPage(lastPageAvailable));
+		}else{
+			dispatch(goToPage(exactPage));
+		}
 	}
 
 	return (

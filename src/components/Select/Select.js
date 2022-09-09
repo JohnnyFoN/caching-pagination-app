@@ -1,15 +1,22 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { show_rows } from '../../actions/tableActions';
+import { goToPage } from '../../actions/pageNumberActions';
 import './Select.css';
 
 export default function Select() {	
 	const dispatch = useDispatch();
+	
+	const users = useSelector(state => state.users);
+	const pageNumber = useSelector(state => state.pageNumber);
 
 	function handleChange(e){
 		e.preventDefault();
 		const rowsPerPage = parseInt(e.target.value);
-		console.log(rowsPerPage)
+		const lastPageAvailable = Math.round(users.length / rowsPerPage);
+		if(pageNumber > lastPageAvailable){
+			dispatch(goToPage(lastPageAvailable));
+		}
 		dispatch(show_rows(rowsPerPage));
 	}
 
