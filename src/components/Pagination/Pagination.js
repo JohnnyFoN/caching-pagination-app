@@ -1,7 +1,6 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { nextPage, previousPage, goToPage } from "../../actions/pageNumberActions";
-
 import './Pagination.css';
 
 export default function Pagination() {

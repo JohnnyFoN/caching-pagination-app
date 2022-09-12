@@ -5,6 +5,7 @@ import { goToPage } from '../../actions/pageNumberActions';
 import './Select.css';
 
 export default function Select() {	
+	
 	const dispatch = useDispatch();
 	
 	const users = useSelector(state => state.users);
